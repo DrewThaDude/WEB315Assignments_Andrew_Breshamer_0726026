@@ -13,55 +13,55 @@ using Microsoft.EntityFrameworkCore;
 namespace RazorPagesChess
 {
     public class Startup
-{
-    public Startup(IConfiguration configuration, IWebHostEnvironment env)
     {
-        Environment = env;
-        Configuration = configuration;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        {
+            Environment = env;
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            if (Environment.IsDevelopment())
+            {
+                services.AddDbContext<RazorPagesChessContext>(options =>
+                options.UseSqlite(
+                    Configuration.GetConnectionString("RazorPagesChessContext")));
+            }
+            else
+            {
+                services.AddDbContext<RazorPagesChessContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("ChessContext")));
+            }
+
+            services.AddRazorPages();
+        }
+
+        public void Configure(IApplicationBuilder app)
+        {
+            if (Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
+        }
     }
-
-    public IConfiguration Configuration { get; }
-    public IWebHostEnvironment Environment { get; }
-
-    public void ConfigureServices(IServiceCollection services)
-    {
-        if (Environment.IsDevelopment())
-        {
-            services.AddDbContext<RazorPagesChessContext>(options =>
-            options.UseSqlite(
-                Configuration.GetConnectionString("RazorPagesChessContext")));
-        }
-        else
-        {
-            services.AddDbContext<RazorPagesChessContext>(options =>
-            options.UseSqlServer(
-                Configuration.GetConnectionString("ChessContext")));
-        }
-
-        services.AddRazorPages();
-    }
-
-    public void Configure(IApplicationBuilder app)
-    {
-        if (Environment.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            app.UseExceptionHandler("/Error");
-            app.UseHsts();
-        }
-
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-
-        app.UseRouting();
-
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapRazorPages();
-        });
-    }
-}
 }
