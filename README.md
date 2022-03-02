@@ -4,7 +4,7 @@ Assignment 1
 dotnet new webapp -o RazorPagesChess code -r RazorPagesChess
 
 dotnet dev-certs https --trust
-
+v
 dotnet watch run
 
 [ctrl + c]
