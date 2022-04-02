@@ -1,5 +1,33 @@
-﻿<h3>grocerystore</h3>
+﻿@page "/grocerystore"
+
+<h3>GroceryStore</h3>
+
+<ul>
+    @foreach (var isle in isles)
+    {
+        <li>@isle.isleName</li> 
+    }
+</ul>
+
+<input placeholder="Add isle" @bind="newIsle" />
+<button @onclick="addIsle">Add Isle</button>
 
 @code {
+    private List<FoodIsle> isles = new List<FoodIsle>() {
+        new FoodIsle {isleName = "produce"},
+        new FoodIsle {isleName = "breakfast"},
+        new FoodIsle {isleName = "beverage"}
+    };
+    
+    //isles.Add(new FoodIsle {isleName = "produce"})
 
+    private string newIsle;
+
+    private void addIsle() {
+        if(!string.IsNullOrWhiteSpace(newIsle)) {
+            isles.Add(new FoodIsle { isleName = newIsle });
+            newIsle = string.Empty;
+        }
+    }
+    
 }
