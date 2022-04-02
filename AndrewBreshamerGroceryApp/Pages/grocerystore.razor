@@ -3,9 +3,12 @@
 <h3>GroceryStore</h3>
 
 <ul>
-    @foreach (var isle in isles)
-    {
-        <li>@isle.isleName</li> 
+    @foreach (var isle in isles) {
+        <li>@isle.isleName
+            foreach (var thing in produceItems) {
+                <li>@thing.itemName</li>
+            }
+        </li> 
     }
 </ul>
 
@@ -29,5 +32,14 @@
             newIsle = string.Empty;
         }
     }
-    
+
+    private List<FoodItem> produceItems = new List<FoodItem>() {
+        new FoodItem {itemName = "apple", brand="Gala", price=0.6}
+    };
+
+    //private string newItem;
+
+    @* private void addItem() {
+
+    } *@
 }

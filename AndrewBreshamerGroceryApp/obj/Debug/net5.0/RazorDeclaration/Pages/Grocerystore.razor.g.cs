@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace AndrewBreshamerGroceryApp.Shared
+namespace AndrewBreshamerGroceryApp.Pages
 {
     #line hidden
     using System;
@@ -82,7 +82,8 @@ using AndrewBreshamerGroceryApp.Shared;
 #line default
 #line hidden
 #nullable disable
-    public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/grocerystore")]
+    public partial class Grocerystore : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -90,16 +91,32 @@ using AndrewBreshamerGroceryApp.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 31 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Shared\NavMenu.razor"
+#line 18 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
        
-    private bool collapseNavMenu = true;
+    private List<FoodIsle> isles = new List<FoodIsle>() {
+        new FoodIsle {isleName = "produce"},
+        new FoodIsle {isleName = "breakfast"},
+        new FoodIsle {isleName = "beverage"}
+    };
+    
+    //isles.Add(new FoodIsle {isleName = "produce"})
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string newIsle;
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
+    private void addIsle() {
+        if(!string.IsNullOrWhiteSpace(newIsle)) {
+            isles.Add(new FoodIsle { isleName = newIsle });
+            newIsle = string.Empty;
+        }
     }
+
+    private List<FoodItem> produceItems = new List<FoodItem>() {
+        new FoodItem {itemName = "apple", brand="Gala", price=0.6}
+    };
+
+    //private string newItem;
+
+    
 
 #line default
 #line hidden

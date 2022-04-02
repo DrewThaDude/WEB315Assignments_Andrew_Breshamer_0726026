@@ -56,3 +56,5 @@ C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\ob
 C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\obj\Debug\net5.0\AndrewBreshamerGroceryApp.pdb
 C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\obj\Debug\net5.0\AndrewBreshamerGroceryApp.genruntimeconfig.cache
 C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\obj\Debug\net5.0\AndrewBreshamerGroceryApp.csproj.CopyComplete
+C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\obj\Debug\net5.0\RazorDeclaration\Pages\Grocerystore.razor.g.cs
+C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\obj\Debug\net5.0\Razor\Pages\Grocerystore.razor.g.cs
