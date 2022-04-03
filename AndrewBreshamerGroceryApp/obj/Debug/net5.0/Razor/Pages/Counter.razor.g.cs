@@ -74,6 +74,13 @@ using AndrewBreshamerGroceryApp;
 #nullable disable
 #nullable restore
 #line 10 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+using AndrewBreshamerGroceryApp.Pages;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using AndrewBreshamerGroceryApp.Shared;
 
 #line default
@@ -88,15 +95,13 @@ using AndrewBreshamerGroceryApp.Shared;
             __builder.AddMarkupContent(0, "<h1>Counter</h1>\r\n\r\n");
             __builder.OpenElement(1, "p");
             __builder.AddContent(2, "Current count: ");
-            __builder.AddContent(3, 
 #nullable restore
 #line 5 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Counter.razor"
-                   currentCount
+__builder.AddContent(3, currentCount);
 
 #line default
 #line hidden
 #nullable disable
-            );
             __builder.CloseElement();
             __builder.AddMarkupContent(4, "\r\n\r\n");
             __builder.OpenElement(5, "button");

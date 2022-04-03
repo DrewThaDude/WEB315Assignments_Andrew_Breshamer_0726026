@@ -8,76 +8,96 @@ namespace AndrewBreshamerGroceryApp.Pages
 {
     #line hidden
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+#line 1 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+#line 2 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+#line 3 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+#line 4 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+#line 5 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+#line 6 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+#line 7 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+#line 8 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+#line 9 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using AndrewBreshamerGroceryApp;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+#line 10 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+using AndrewBreshamerGroceryApp.Pages;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using AndrewBreshamerGroceryApp.Shared;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
+using System.Collections;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
+using System.Collections.Generic;
 
 #line default
 #line hidden
@@ -91,37 +111,67 @@ using AndrewBreshamerGroceryApp.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 18 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
+#line 27 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
        
+    
+    
     private string newIsle;
 
-    //public object isleItemList;
-
-    private List<FoodIsle> isleList = new List<FoodIsle>() 
+    private List<GroceryIsle> isleList = new List<GroceryIsle>() 
     {
-        new FoodIsle { isleName = "produce", isleItems = new List<FoodItem>() 
+        new GroceryIsle() 
+        { 
+            isleName = "produce", isleItems = new List<FoodItem>() 
             { 
-                new FoodItem { itemName = "apple" }
+                new FoodItem()
+                { 
+                    itemName = "apple", brand = "Gala", price = 0.5
+                },
+                new FoodItem()
+                { 
+                    itemName = "banana", brand = "Chiquita", price = 0.3
+                },
             }
         },
-        
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 31 "c:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
-                                               
-    };
+        new GroceryIsle 
+        { 
+            isleName = "breakfast", isleItems = new List<FoodItem>() 
+            { 
+                new FoodItem()
+                { 
+                    itemName = "crackers", brand = "Ritz", price = 3
+                },
+                new FoodItem()
+                { 
+                    itemName = "coffee", brand = "folgers", price = 15
+                },
+            }
+        },
+        new GroceryIsle 
+        {
+            isleName = "beverage", isleItems = new List<FoodItem>() 
+            { 
+                new FoodItem()
+                { 
+                    itemName = "soda", brand = "Coca-Cola", price = 6
+                },
+                new FoodItem()
+                { 
+                    itemName = "fruit-juice", brand = "Minute Maid", price = 4
+                },
+            }
+        }
+    }; 
 
     private void addIsle() 
     {
         if(!string.IsNullOrWhiteSpace(newIsle)) 
         {
-            isleList.Add(new FoodIsle { isleName = newIsle });
+            isleList.Add(new GroceryIsle { isleName = newIsle });
             newIsle = string.Empty;
         }
     }
+    
 
 #line default
 #line hidden
