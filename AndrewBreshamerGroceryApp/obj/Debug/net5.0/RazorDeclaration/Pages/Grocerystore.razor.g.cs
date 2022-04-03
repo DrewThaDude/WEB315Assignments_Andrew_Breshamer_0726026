@@ -111,59 +111,57 @@ using System.Collections.Generic;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 27 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
+#line 33 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
        
-    
-    
     private string newIsle;
 
     private List<GroceryIsle> isleList = new List<GroceryIsle>() 
     {
         new GroceryIsle() 
         { 
-            isleName = "produce", isleItems = new List<FoodItem>() 
+            isleName = "produce", isleNumber = 0, isleItems = new List<FoodItem>() 
             { 
                 new FoodItem()
                 { 
-                    itemName = "apple", brand = "Gala", price = 0.5
+                    itemName = "Apple", brand = "Gala", price = 0.5, qty = 0
                 },
                 new FoodItem()
                 { 
-                    itemName = "banana", brand = "Chiquita", price = 0.3
+                    itemName = "Banana", brand = "Chiquita", price = 0.3, qty = 0
                 },
             }
         },
-        new GroceryIsle 
+        new GroceryIsle() 
         { 
-            isleName = "breakfast", isleItems = new List<FoodItem>() 
+            isleName = "breakfast", isleNumber = 1, isleItems = new List<FoodItem>() 
             { 
                 new FoodItem()
                 { 
-                    itemName = "crackers", brand = "Ritz", price = 3
+                    itemName = "Crackers", brand = "Ritz", price = 3, qty = 0
                 },
                 new FoodItem()
                 { 
-                    itemName = "coffee", brand = "folgers", price = 15
+                    itemName = "Coffee", brand = "folgers", price = 15, qty = 0
                 },
             }
         },
-        new GroceryIsle 
+        new GroceryIsle() 
         {
-            isleName = "beverage", isleItems = new List<FoodItem>() 
+            isleName = "beverage", isleNumber = 2, isleItems = new List<FoodItem>() 
             { 
                 new FoodItem()
                 { 
-                    itemName = "soda", brand = "Coca-Cola", price = 6
+                    itemName = "Soda", brand = "Coca-Cola", price = 6, qty = 0
                 },
                 new FoodItem()
                 { 
-                    itemName = "fruit-juice", brand = "Minute Maid", price = 4
+                    itemName = "Fruit-juice", brand = "Minute Maid", price = 4, qty = 0
                 },
             }
         }
     }; 
 
-    private void addIsle() 
+    private void AddIsle() 
     {
         if(!string.IsNullOrWhiteSpace(newIsle)) 
         {
@@ -171,7 +169,6 @@ using System.Collections.Generic;
             newIsle = string.Empty;
         }
     }
-    
 
 #line default
 #line hidden

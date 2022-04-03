@@ -7,12 +7,18 @@
 <ul>
     @foreach (var isle in isleList) 
     {
-        <li>@isle.isleName 
+        <li> 
+            Isle @isle.isleNumber , Description: @isle.isleName
             <ul>
                 @foreach (var item in isle.isleItems) 
                 {
-                <li>@item.itemName 
-                
+                <li>
+                    Item: @item.itemName
+                    <br> Brand: @item.brand 
+                    <br> Price: @String.Format("${0:#,##0.00}", (@item.price))
+                    <br> Quantity: @item.qty
+                    <button class="btn btn-primary" @onclick="()=> item.qty++">Increase</button>
+                    <button class="btn btn-primary" @onclick="()=> item.qty--">Decrease</button>
                 </li>
                 }
             </ul>
@@ -21,61 +27,59 @@
 </ul>
 
 <input placeholder="Add isle" @bind="newIsle" />
-<button @onclick="addIsle">Add Isle</button>
+<button @onclick="AddIsle">Add Isle</button>
 
 
 @code {
-    
-    
     private string newIsle;
 
     private List<GroceryIsle> isleList = new List<GroceryIsle>() 
     {
         new GroceryIsle() 
         { 
-            isleName = "produce", isleItems = new List<FoodItem>() 
+            isleName = "produce", isleNumber = 0, isleItems = new List<FoodItem>() 
             { 
                 new FoodItem()
                 { 
-                    itemName = "apple", brand = "Gala", price = 0.5
+                    itemName = "Apple", brand = "Gala", price = 0.5, qty = 0
                 },
                 new FoodItem()
                 { 
-                    itemName = "banana", brand = "Chiquita", price = 0.3
+                    itemName = "Banana", brand = "Chiquita", price = 0.3, qty = 0
                 },
             }
         },
-        new GroceryIsle 
+        new GroceryIsle() 
         { 
-            isleName = "breakfast", isleItems = new List<FoodItem>() 
+            isleName = "breakfast", isleNumber = 1, isleItems = new List<FoodItem>() 
             { 
                 new FoodItem()
                 { 
-                    itemName = "crackers", brand = "Ritz", price = 3
+                    itemName = "Crackers", brand = "Ritz", price = 3, qty = 0
                 },
                 new FoodItem()
                 { 
-                    itemName = "coffee", brand = "folgers", price = 15
+                    itemName = "Coffee", brand = "folgers", price = 15, qty = 0
                 },
             }
         },
-        new GroceryIsle 
+        new GroceryIsle() 
         {
-            isleName = "beverage", isleItems = new List<FoodItem>() 
+            isleName = "beverage", isleNumber = 2, isleItems = new List<FoodItem>() 
             { 
                 new FoodItem()
                 { 
-                    itemName = "soda", brand = "Coca-Cola", price = 6
+                    itemName = "Soda", brand = "Coca-Cola", price = 6, qty = 0
                 },
                 new FoodItem()
                 { 
-                    itemName = "fruit-juice", brand = "Minute Maid", price = 4
+                    itemName = "Fruit-juice", brand = "Minute Maid", price = 4, qty = 0
                 },
             }
         }
     }; 
 
-    private void addIsle() 
+    private void AddIsle() 
     {
         if(!string.IsNullOrWhiteSpace(newIsle)) 
         {
@@ -83,5 +87,4 @@
             newIsle = string.Empty;
         }
     }
-    
 }
