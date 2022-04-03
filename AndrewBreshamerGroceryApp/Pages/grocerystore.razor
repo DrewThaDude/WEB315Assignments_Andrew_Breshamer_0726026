@@ -1,12 +1,12 @@
-﻿@page "/grocerystore"
+﻿@page "/grocerystore" 
 
 <h3>GroceryStore</h3>
 
 <ul>
-    @foreach (var isle in isles) {
+    @foreach (var isle in isleList) {
         <li>@isle.isleName
-            foreach (var thing in produceItems) {
-                <li>@thing.itemName</li>
+            @foreach (var item in isleItems) {
+                <li>@item.itemName</li>
             }
         </li> 
     }
@@ -16,30 +16,27 @@
 <button @onclick="addIsle">Add Isle</button>
 
 @code {
-    private List<FoodIsle> isles = new List<FoodIsle>() {
-        new FoodIsle {isleName = "produce"},
-        new FoodIsle {isleName = "breakfast"},
-        new FoodIsle {isleName = "beverage"}
-    };
-    
-    //isles.Add(new FoodIsle {isleName = "produce"})
-
     private string newIsle;
 
-    private void addIsle() {
-        if(!string.IsNullOrWhiteSpace(newIsle)) {
-            isles.Add(new FoodIsle { isleName = newIsle });
+    //public object isleItemList;
+
+    private List<FoodIsle> isleList = new List<FoodIsle>() 
+    {
+        new FoodIsle { isleName = "produce", isleItems = new List<FoodItem>() 
+            { 
+                new FoodItem { itemName = "apple" }
+            }
+        },
+        @* new FoodIsle {isleName = "breakfast"},
+        new FoodIsle {isleName = "beverage"} *@
+    };
+
+    private void addIsle() 
+    {
+        if(!string.IsNullOrWhiteSpace(newIsle)) 
+        {
+            isleList.Add(new FoodIsle { isleName = newIsle });
             newIsle = string.Empty;
         }
     }
-
-    private List<FoodItem> produceItems = new List<FoodItem>() {
-        new FoodItem {itemName = "apple", brand="Gala", price=0.6}
-    };
-
-    //private string newItem;
-
-    @* private void addItem() {
-
-    } *@
 }
