@@ -2,7 +2,13 @@
 @using System.Collections;
 @using System.Collections.Generic;
 
+
+
+<AddNewIsle/> 
+
 <h3>GroceryStore</h3>
+
+<br> @* use CSS probably *@
 
 <ul>
     @foreach (var isle in isleList) 
@@ -15,7 +21,7 @@
                 <li>
                     Item: @item.itemName
                     <br> Brand: @item.brand 
-                    <br> Price: @String.Format("${0:#,##0.00}", (@item.price))
+                    <br> Price: @String.Format("${0:#,##0.00}", (@item.price)) @* Format currency in data validation also possible... but doesn't work idk :/ *@
                     <br> Quantity: @item.qty
                     <button class="btn btn-primary" @onclick="()=> item.qty++">Increase</button>
                     <button class="btn btn-primary" @onclick="()=> item.qty--">Decrease</button>
@@ -33,7 +39,7 @@
 @code {
     private string newIsle;
 
-    private List<GroceryIsle> isleList = new List<GroceryIsle>() 
+    public static List<GroceryIsle> isleList = new List<GroceryIsle>() //declare list as static for "public" use by other components... not sure if correct solution, but works
     {
         new GroceryIsle() 
         { 

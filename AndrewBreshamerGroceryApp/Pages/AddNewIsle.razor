@@ -1,0 +1,49 @@
+﻿@using AndrewBreshamerGroceryApp.Pages;
+@using System.Collections;
+@using System.Collections.Generic;
+
+@page "/addnewisle"
+
+<h2>Add Food Item to Isle</h2>
+
+<input placeholder="New food item name" @bind="newItemName" />
+
+<input placeholder="New food item price" @bind="newPrice" />
+
+<input placeholder="New food item brand" @bind="newBrand" />
+
+<input placeholder="New food item quantity" @bind="newQty" />
+
+<button @onclick="AddIsleByNumber">Confirm</button>
+
+@code {
+    private string newItemName; //only displays placeholder if string (only to keep text inside of input box)
+
+    private static string newPrice;
+
+    private string newBrand;
+
+    public static string newQty;
+    
+    
+
+    private void AddIsleByNumber()
+    {
+        private int newPriceFormated = Int32.Parse(newPrice);
+
+        private int newQtyFormated = Int32.Parse(newQty);
+        
+        Grocerystore.isleList.Add(
+            new GroceryIsle() 
+            { 
+                isleName = "produce", isleNumber = 0, isleItems = new List<FoodItem>() 
+                { 
+                    new FoodItem()
+                    { 
+                        itemName = newItemName, brand = newBrand, price = newPriceFormated, qty = newQtyFormated
+                    },
+                }
+            }
+        );
+    }
+}

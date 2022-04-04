@@ -144,6 +144,39 @@
         }
       },
       {
+        "HashCode": -851806798,
+        "Kind": "Components.Component",
+        "Name": "AndrewBreshamerGroceryApp.Pages.AddNewIsle",
+        "AssemblyName": "AndrewBreshamerGroceryApp",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "AddNewIsle"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "AndrewBreshamerGroceryApp.Pages.AddNewIsle"
+        }
+      },
+      {
+        "HashCode": -1455708065,
+        "Kind": "Components.Component",
+        "Name": "AndrewBreshamerGroceryApp.Pages.AddNewIsle",
+        "AssemblyName": "AndrewBreshamerGroceryApp",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "AndrewBreshamerGroceryApp.Pages.AddNewIsle"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "AndrewBreshamerGroceryApp.Pages.AddNewIsle",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
         "HashCode": 1671690115,
         "Kind": "Components.Component",
         "Name": "AndrewBreshamerGroceryApp.App",
@@ -15993,6 +16026,11 @@
     {
       "FilePath": "c:\\Programming Tests\\RazorPageChess\\RazorPagesChess\\AndrewBreshamerGroceryApp\\Pages\\Counter.razor",
       "TargetPath": "Pages\\Counter.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Programming Tests\\RazorPageChess\\RazorPagesChess\\AndrewBreshamerGroceryApp\\Pages\\AddNewIsle.razor",
+      "TargetPath": "Pages\\AddNewIsle.razor",
       "FileKind": "component"
     },
     {

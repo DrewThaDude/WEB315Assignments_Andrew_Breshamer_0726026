@@ -89,6 +89,13 @@ using AndrewBreshamerGroceryApp.Shared;
 #line hidden
 #nullable disable
 #nullable restore
+#line 12 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
+using System.ComponentModel.DataAnnotations;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 2 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
 using System.Collections;
 
@@ -111,11 +118,11 @@ using System.Collections.Generic;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
+#line 39 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
        
     private string newIsle;
 
-    private List<GroceryIsle> isleList = new List<GroceryIsle>() 
+    public static List<GroceryIsle> isleList = new List<GroceryIsle>() //declare list as static for "public" use by other components... not sure if correct solution, but works
     {
         new GroceryIsle() 
         { 

@@ -8,7 +8,6 @@ namespace AndrewBreshamerGroceryApp.Pages
 {
     #line hidden
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
@@ -76,13 +75,6 @@ using AndrewBreshamerGroceryApp;
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
-using AndrewBreshamerGroceryApp.Pages;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 11 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
 using AndrewBreshamerGroceryApp.Shared;
 
@@ -96,8 +88,29 @@ using System.ComponentModel.DataAnnotations;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
-    public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 1 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\AddNewIsle.razor"
+using AndrewBreshamerGroceryApp.Pages;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\AddNewIsle.razor"
+using System.Collections;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\AddNewIsle.razor"
+using System.Collections.Generic;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/addnewisle")]
+    public partial class AddNewIsle : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,13 +118,36 @@ using System.ComponentModel.DataAnnotations;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 9 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Counter.razor"
+#line 19 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\AddNewIsle.razor"
        
-    private int currentCount = 0;
+    private string newItemName; //only displays placeholder if string (only to keep text inside of input box)
 
-    private void IncrementCount()
+    private static string newPrice;
+
+    private string newBrand;
+
+    public static string newQty;
+    
+    
+
+    private void AddIsleByNumber()
     {
-        currentCount++;
+        private int newPriceFormated = Int32.Parse(newPrice);
+
+        private int newQtyFormated = Int32.Parse(newQty);
+        
+        Grocerystore.isleList.Add(
+            new GroceryIsle() 
+            { 
+                isleName = "produce", isleNumber = 0, isleItems = new List<FoodItem>() 
+                { 
+                    new FoodItem()
+                    { 
+                        itemName = newItemName, brand = newBrand, price = newPriceFormated, qty = newQtyFormated
+                    },
+                }
+            }
+        );
     }
 
 #line default
