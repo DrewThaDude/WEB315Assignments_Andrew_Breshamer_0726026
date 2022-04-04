@@ -14,7 +14,7 @@
 
 <input placeholder="New food item quantity" @bind="newQty" />
 
-<button @onclick=@(()=> Grocerystore.SendToGrocerystore())>Confirm</button>
+<button @onclick="AddIsleByNumber">Confirm</button>
 
 @code {
     private string newItemName;
@@ -26,13 +26,13 @@
     private int newQty;
     
 
-    @* private void AddIsleByNumber()
+    private void AddIsleByNumber()
     {
-        isleItems.Add();
-             FoodItem()
+        GroceryIsle.isleItems.Add(
+            new FoodItem()
                 { 
                     itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
                 }
-        
-    } *@
+        );
+    }
 }

@@ -82,13 +82,6 @@ using AndrewBreshamerGroceryApp.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 12 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\_Imports.razor"
-using System.ComponentModel.DataAnnotations;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 1 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\AddNewIsle.razor"
 using AndrewBreshamerGroceryApp.Pages;
 
@@ -129,7 +122,15 @@ using System.Collections.Generic;
     private int newQty;
     
 
-    
+    private void AddIsleByNumber()
+    {
+        GroceryIsle.isleItems.Add(
+            new FoodItem()
+                { 
+                    itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
+                }
+        );
+    }
 
 #line default
 #line hidden
