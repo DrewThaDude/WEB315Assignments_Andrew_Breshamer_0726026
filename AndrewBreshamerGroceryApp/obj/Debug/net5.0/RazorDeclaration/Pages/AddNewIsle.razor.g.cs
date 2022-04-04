@@ -120,35 +120,16 @@ using System.Collections.Generic;
 #nullable restore
 #line 19 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\AddNewIsle.razor"
        
-    private string newItemName; //only displays placeholder if string (only to keep text inside of input box)
+    private string newItemName;
 
-    private static string newPrice;
+    private double newPrice;
 
     private string newBrand;
 
-    public static string newQty;
-    
+    private int newQty;
     
 
-    private void AddIsleByNumber()
-    {
-        private int newPriceFormated = Int32.Parse(newPrice);
-
-        private int newQtyFormated = Int32.Parse(newQty);
-        
-        Grocerystore.isleList.Add(
-            new GroceryIsle() 
-            { 
-                isleName = "produce", isleNumber = 0, isleItems = new List<FoodItem>() 
-                { 
-                    new FoodItem()
-                    { 
-                        itemName = newItemName, brand = newBrand, price = newPriceFormated, qty = newQtyFormated
-                    },
-                }
-            }
-        );
-    }
+    
 
 #line default
 #line hidden

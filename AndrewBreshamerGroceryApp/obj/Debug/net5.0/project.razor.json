@@ -111,39 +111,6 @@
         }
       },
       {
-        "HashCode": -606864215,
-        "Kind": "Components.Component",
-        "Name": "AndrewBreshamerGroceryApp.Pages.Grocerystore",
-        "AssemblyName": "AndrewBreshamerGroceryApp",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Grocerystore"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "AndrewBreshamerGroceryApp.Pages.Grocerystore"
-        }
-      },
-      {
-        "HashCode": -946411377,
-        "Kind": "Components.Component",
-        "Name": "AndrewBreshamerGroceryApp.Pages.Grocerystore",
-        "AssemblyName": "AndrewBreshamerGroceryApp",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "AndrewBreshamerGroceryApp.Pages.Grocerystore"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "AndrewBreshamerGroceryApp.Pages.Grocerystore",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -851806798,
         "Kind": "Components.Component",
         "Name": "AndrewBreshamerGroceryApp.Pages.AddNewIsle",
@@ -173,6 +140,39 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "AndrewBreshamerGroceryApp.Pages.AddNewIsle",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -606864215,
+        "Kind": "Components.Component",
+        "Name": "AndrewBreshamerGroceryApp.Pages.Grocerystore",
+        "AssemblyName": "AndrewBreshamerGroceryApp",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Grocerystore"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "AndrewBreshamerGroceryApp.Pages.Grocerystore"
+        }
+      },
+      {
+        "HashCode": -946411377,
+        "Kind": "Components.Component",
+        "Name": "AndrewBreshamerGroceryApp.Pages.Grocerystore",
+        "AssemblyName": "AndrewBreshamerGroceryApp",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "AndrewBreshamerGroceryApp.Pages.Grocerystore"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "AndrewBreshamerGroceryApp.Pages.Grocerystore",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
