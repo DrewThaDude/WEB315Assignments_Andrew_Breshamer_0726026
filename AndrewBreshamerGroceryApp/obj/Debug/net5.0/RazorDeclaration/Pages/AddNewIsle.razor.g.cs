@@ -111,7 +111,7 @@ using System.Collections.Generic;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 19 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\AddNewIsle.razor"
+#line 21 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\AddNewIsle.razor"
        
     private string newItemName;
 
@@ -121,16 +121,7 @@ using System.Collections.Generic;
 
     private int newQty;
     
-
-    private void AddIsleByNumber()
-    {
-        GroceryIsle.isleItems.Add(
-            new FoodItem()
-                { 
-                    itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
-                }
-        );
-    }
+    private int isleIndex;
 
 #line default
 #line hidden

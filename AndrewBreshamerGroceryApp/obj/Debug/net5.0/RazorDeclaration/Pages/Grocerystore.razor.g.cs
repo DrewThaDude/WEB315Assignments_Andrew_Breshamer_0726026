@@ -170,9 +170,23 @@ using System.Collections.Generic;
         }
     }
 
-    public static void SendToGrocerystore()
+    public static void SendToGrocerystore(string newItemName, double newPrice, string newBrand, int newQty, int isleIndex)
     {
-
+        foreach(var isle in isleList)
+        {
+            var i = isle.isleNumber;
+            int stopErrors = isleIndex;
+            if(i == stopErrors)
+            {
+            new List<FoodItem>() 
+                { 
+                    new FoodItem()
+                    { 
+                        itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
+                    }
+                };
+            }
+        }
     }
 
 #line default
