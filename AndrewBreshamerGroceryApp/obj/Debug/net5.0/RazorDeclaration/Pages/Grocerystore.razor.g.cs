@@ -111,11 +111,11 @@ using System.Collections.Generic;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
+#line 37 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
        
     private string newIsle;
 
-    private List<GroceryIsle> isleList = new List<GroceryIsle>() 
+    public static List<GroceryIsle> isleList = new List<GroceryIsle>() //declare list as static for "public" use by other components... not sure if correct solution, but works
     {
         new GroceryIsle() 
         { 
@@ -168,6 +168,11 @@ using System.Collections.Generic;
             isleList.Add(new GroceryIsle { isleName = newIsle });
             newIsle = string.Empty;
         }
+    }
+
+    public static void SendToGrocerystore()
+    {
+
     }
 
 #line default
