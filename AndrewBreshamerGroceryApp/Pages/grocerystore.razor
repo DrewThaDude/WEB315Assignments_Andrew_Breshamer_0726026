@@ -2,7 +2,9 @@
 @using System.Collections;
 @using System.Collections.Generic;
 
-<AddNewIsle/> 
+@* <AddNewIsle
+    AddItemToisle="AddItemAtIsle"
+/>  *@
 
 <h3>GroceryStore</h3>
 
@@ -33,6 +35,19 @@
 <input placeholder="Add isle" @bind="newIsle" />
 <button @onclick="AddIsle">Add Isle</button>
 
+<br/>
+
+<input placeholder="New food item name" @bind="newItemName" />
+
+<input placeholder="New food item price" @bind="newPrice" />
+
+<input placeholder="New food item brand" @bind="newBrand" />
+
+<input placeholder="New food item quantity" @bind="newQty" />
+
+<input placeholder="Isle number" @bind="isleIndex" />
+
+<button @onclick="SendToGrocerystore">Confirm</button>
 
 @code {
     private string newIsle;
@@ -92,22 +107,53 @@
         }
     }
 
-    public static void SendToGrocerystore(string newItemName, double newPrice, string newBrand, int newQty, int isleIndex)
+    public string newItemName;
+
+    public double newPrice;
+
+    public string newBrand;
+
+    public int newQty;
+    
+    public int isleIndex;
+
+    public void SendToGrocerystore()
+    {
+        for(int i = isleList.Count - 1; i >= 0; i--)
+        {
+            foreach(var isle in isleList)
+            {
+                if(i == isle.isleNumber)
+                {
+                    new FoodItem()
+                    { 
+                        itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
+                    };
+                }
+            }
+        }
+    }
+    @* public void SendToGrocerystore()
     {
         foreach(var isle in isleList)
         {
             var i = isle.isleNumber;
-            int stopErrors = isleIndex;
-            if(i == stopErrors)
+            isleList.Add(new GroceryIsle { isleName = isle.isleNumber.ToString() });
+            if(i == isleIndex 
+            && !string.IsNullOrWhiteSpace(newItemName) 
+            && !String.IsNullOrEmpty(newQty.ToString())
+            && !string.IsNullOrWhiteSpace(newBrand)
+            && !double.IsNaN(newQty)
+            )
             {
-            new List<FoodItem>() 
-                { 
+                foreach(var item in isle.isleItems)
+                {
                     new FoodItem()
                     { 
                         itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
-                    }
-                };
+                    };
+                }
             }
         }
-    }
+    } *@
 }

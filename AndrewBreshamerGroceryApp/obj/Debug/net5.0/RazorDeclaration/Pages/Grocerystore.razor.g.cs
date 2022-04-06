@@ -111,7 +111,7 @@ using System.Collections.Generic;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
+#line 52 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
        
     private string newIsle;
 
@@ -170,24 +170,33 @@ using System.Collections.Generic;
         }
     }
 
-    public static void SendToGrocerystore(string newItemName, double newPrice, string newBrand, int newQty, int isleIndex)
+    public string newItemName;
+
+    public double newPrice;
+
+    public string newBrand;
+
+    public int newQty;
+    
+    public int isleIndex;
+
+    public void SendToGrocerystore()
     {
-        foreach(var isle in isleList)
+        for(int i = isleList.Count - 1; i >= 0; i--)
         {
-            var i = isle.isleNumber;
-            int stopErrors = isleIndex;
-            if(i == stopErrors)
+            foreach(var isle in isleList)
             {
-            new List<FoodItem>() 
-                { 
+                if(i == isle.isleNumber)
+                {
                     new FoodItem()
                     { 
                         itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
-                    }
-                };
+                    };
+                }
             }
         }
     }
+    
 
 #line default
 #line hidden

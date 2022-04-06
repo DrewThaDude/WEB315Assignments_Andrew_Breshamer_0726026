@@ -16,7 +16,7 @@
 
 <input placeholder="Isle number" @bind="isleIndex" />
 
-<button @onclick=@(()=> Grocerystore.SendToGrocerystore(newItemName, newPrice, newBrand, newQty, isleIndex))>Confirm</button>
+@* <button @onclick="@(()=> Grocerystore.SendToGrocerystore(newItemName, newPrice, newBrand, newQty, isleIndex))">Confirm</button> *@
 
 @code {
     private string newItemName;
@@ -28,4 +28,5 @@
     private int newQty;
     
     private int isleIndex;
+    
 }
