@@ -111,8 +111,9 @@ using System.Collections.Generic;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 52 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
+#line 55 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
        
+
     private string newIsle;
 
     public static List<GroceryIsle> isleList = new List<GroceryIsle>() //declare list as static for "public" use by other components... not sure if correct solution, but works
@@ -169,6 +170,13 @@ using System.Collections.Generic;
             newIsle = string.Empty;
         }
     }
+    private void AddQuantity(FoodItem item, int amountToChange)
+    {
+        if (item.qty >= 0 && item.qty <= 20) 
+        {
+            item.qty = item.qty + amountToChange;
+        }
+    }
 
     public string newItemName;
 
@@ -180,23 +188,22 @@ using System.Collections.Generic;
     
     public int isleIndex;
 
-    public void SendToGrocerystore()
-    {
-        for(int i = isleList.Count - 1; i >= 0; i--)
-        {
-            foreach(var isle in isleList)
-            {
-                if(i == isle.isleNumber)
-                {
-                    new FoodItem()
-                    { 
-                        itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
-                    };
-                }
-            }
-        }
-    }
     
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 149 "C:\Programming Tests\RazorPageChess\RazorPagesChess\AndrewBreshamerGroceryApp\Pages\Grocerystore.razor"
+        
+    public void SendToGrocerystore() {
+        isleList[isleIndex].isleItems.Add(
+            new FoodItem
+            {
+                itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
+            }
+        );
+    }
 
 #line default
 #line hidden

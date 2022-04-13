@@ -23,7 +23,10 @@
                     <br> Brand: @item.brand 
                     <br> Price: @String.Format("${0:#,##0.00}", (@item.price)) @* Format currency in data validation also possible... but doesn't work idk :/ *@
                     <br> Quantity: @item.qty
-                    <button class="btn btn-primary" @onclick="()=> item.qty++">Increase</button>
+                    <button class="btn btn-primary" 
+                    @onclick="()=> item.qty++">
+                    Increase</button> 
+                    <button class="btn btn-primary" @onclick="()=> AddQuantity(item, 1)">Increase</button>
                     <button class="btn btn-primary" @onclick="()=> item.qty--">Decrease</button>
                 </li>
                 }
@@ -50,6 +53,7 @@
 <button @onclick="SendToGrocerystore">Confirm</button>
 
 @code {
+
     private string newIsle;
 
     public static List<GroceryIsle> isleList = new List<GroceryIsle>() //declare list as static for "public" use by other components... not sure if correct solution, but works
@@ -106,6 +110,13 @@
             newIsle = string.Empty;
         }
     }
+    private void AddQuantity(FoodItem item, int amountToChange)
+    {
+        if (item.qty >= 0 && item.qty <= 20) 
+        {
+            item.qty = item.qty + amountToChange;
+        }
+    }
 
     public string newItemName;
 
@@ -117,43 +128,31 @@
     
     public int isleIndex;
 
-    public void SendToGrocerystore()
+    @* public void SendToGrocerystore()
     {
         for(int i = isleList.Count - 1; i >= 0; i--)
         {
-            foreach(var isle in isleList)
-            {
-                if(i == isle.isleNumber)
-                {
-                    new FoodItem()
-                    { 
-                        itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
-                    };
-                }
-            }
-        }
-    }
-    @* public void SendToGrocerystore()
-    {
-        foreach(var isle in isleList)
-        {
-            var i = isle.isleNumber;
-            isleList.Add(new GroceryIsle { isleName = isle.isleNumber.ToString() });
-            if(i == isleIndex 
+            if (i == isleIndex
             && !string.IsNullOrWhiteSpace(newItemName) 
             && !String.IsNullOrEmpty(newQty.ToString())
             && !string.IsNullOrWhiteSpace(newBrand)
-            && !double.IsNaN(newQty)
-            )
+            && !double.IsNaN(newPrice)) 
             {
-                foreach(var item in isle.isleItems)
-                {
-                    new FoodItem()
-                    { 
+                isleList[i].isleItems.Add(
+                    new FoodItem
+                    {
                         itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
-                    };
-                }
-            }
+                    }
+                );
+            };
         }
     } *@
+    public void SendToGrocerystore() {
+        isleList[isleIndex].isleItems.Add(
+            new FoodItem
+            {
+                itemName = newItemName, brand = newBrand, price = newPrice, qty = newQty
+            }
+        );
+    }
 }
