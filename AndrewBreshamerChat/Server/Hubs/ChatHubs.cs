@@ -12,7 +12,11 @@ namespace AndrewBreshamerChat.Server.Hubs
         }
         public async Task SendMessageOthers(string user, string message)
         {
-            await Clients.Others.SendAsync("SendMessage", user, "is typing •••");
+            await Clients.Others.SendAsync("ReceiveMessage", user, message);
+        }
+        public async Task HideMessageOthers(string user, string message)
+        {
+            await Clients.Others.SendAsync("HideReceivedMessage", user, "is typing •••");
         }
     }
 }

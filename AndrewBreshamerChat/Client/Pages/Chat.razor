@@ -1,12 +1,8 @@
 ﻿@page "/chat"
 @using System
 @using Microsoft.AspNetCore.SignalR.Client
-@using using AndrewBreshamerChat.Server.Hubs
 @inject NavigationManager NavigationManager
 @implements IAsyncDisposable 
-@* Provides a mechanism for releasing unmanaged resources asynchronously. *@
-@* Providing such a mechanism enables the consumer to perform resource-intensive 
-dispose operations without blocking the main thread of a GUI application for a long time *@
 
 <h3>Chat</h3>
 
@@ -20,10 +16,10 @@ dispose operations without blocking the main thread of a GUI application for a l
 <div class="form-group">
     <label>
         Message:
-        <input @bind="messageInput" size="50" @onfocus="DisplayNameTyping" @onblur="HideFocus" /> 
+        <input @bind="messageInput" size="50" @onfocus="DisplayNameTyping" @onblur="HideNameTyping" />
     </label>
 </div>
-<button @onclick="SendMessage" disabled="@(!IsConnected)">Send</button>
+<button @onclick="Send" disabled="@(!IsConnected)">Send</button>
 
 <hr>
 
@@ -39,7 +35,6 @@ dispose operations without blocking the main thread of a GUI application for a l
     private List<string> messages = new List<string>();
     private string userInput;
     private string messageInput;
-    private string displayNameIsTyping;
 
     protected override async Task OnInitializedAsync()
     @* TAP (Task-based asynchronous pattern) uses a single method to represent the initiation and 
@@ -69,15 +64,10 @@ dispose operations without blocking the main thread of a GUI application for a l
             StateHasChanged();
         });
 
-        hubConnection.On<string, string>("ReceiveMessage", (user, message) => 
-        //simply added second recieve action if both user && message match
+        hubConnection.On<string, string>("HideReceivedMessage", (user, message) => 
         {
-            bool areSame = user.Equals(userInput);
-            bool messageAreSame = message.Equals("is typing •••");
-            if(areSame && messageAreSame) {
-                messages.RemoveAt(messages.Count -1);
-                StateHasChanged();
-            };
+            messages.RemoveAt(messages.Count -1);
+            StateHasChanged();
         });
 
         await hubConnection.StartAsync();
@@ -95,14 +85,15 @@ dispose operations without blocking the main thread of a GUI application for a l
         await Task.Delay(400); 
         //'await' suspends evalutaion of method until the async opeartion is called
         //add short delay to Task, "DisplayNameTypinc()" by using keyword 'Task'
-        await hubConnection.SendAsync("SendMessage", userInput, "is typing •••");
+        await hubConnection.SendAsync("SendMessageOthers", userInput, "is typing... ");
     }
-    private void HideFocus() {
-        @* public string = "something"; *@
+    private async Task HideNameTyping()
+    {
+        await hubConnection.SendAsync("HideMessageOthers", userInput, "e");
     }
 
-    @* async Task Send() => //sinlge operation with no return value
-        await hubConnection.SendAsync("SendMessage", userInput, messageInput); *@
+    async Task Send() => //sinlge operation with no return value
+        await hubConnection.SendAsync("SendMessage", userInput, messageInput);
 
     public bool IsConnected =>
         hubConnection.State == HubConnectionState.Connected;
