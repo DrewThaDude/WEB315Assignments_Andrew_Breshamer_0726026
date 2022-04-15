@@ -1,0 +1,74 @@
+﻿@page "/chat"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager NavigationManager
+@implements IAsyncDisposable 
+@* Provides a mechanism for releasing unmanaged resources asynchronously. *@
+@* Providing such a mechanism enables the consumer to perform resource-intensive 
+dispose operations without blocking the main thread of a GUI application for a long time *@
+
+<h3>Chat</h3>
+
+<div class="form-group">
+    <label>
+        User:
+        <input @bind="userInput" />
+    </label>
+</div>
+<div class="form-group">
+    <label>
+        Message:
+        <input @bind="messageInput" size="50" />
+    </label>
+</div>
+<button @onclick="Send" disabled="@(!IsConnected)">Send</button>
+
+<hr>
+
+<ul id="messagesList">
+    @foreach (var message in messages)
+    {
+        <li>@message</li>
+    }
+</ul>
+
+@code {
+    private HubConnection hubConnection;
+    private List<string> messages = new List<string>();
+    private string userInput;
+    private string messageInput;
+
+    protected override async Task OnInitializedAsync()
+    @* TAP (Task-based asynchronous pattern) uses a single method to represent the initiation and 
+    completion of an asynchronous operation. This contrasts with both the APM (Asynchronous Programming 
+    Model) and the EAP (Event-based Asynchronous Pattern) *@
+    {
+        hubConnection = new HubConnectionBuilder() 
+            //method in Microsoft.AspNetCore.SignalR.Client
+            //A builder for configuring HubConnection instances.
+            .WithUrl(NavigationManager.ToAbsoluteUri("/chat")) //route navigation manager method to new page 
+            .Build();
+
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        {
+            var encodedMsg = $"{user}: {message}";
+            messages.Add(encodedMsg);
+            StateHasChanged();
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    async Task Send() =>
+        await hubConnection.SendAsync("SendMessage", userInput, messageInput);
+
+    public bool IsConnected =>
+        hubConnection.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

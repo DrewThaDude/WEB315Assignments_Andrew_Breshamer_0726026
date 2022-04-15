@@ -60,7 +60,7 @@ namespace AndrewBreshamerChat.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/chathub"); //add endpoint for newely created ChatHub class from ChatHub.cs
+                endpoints.MapHub<ChatHub>("/chat"); //add endpoint for newely created ChatHub class from ChatHub.cs
                 endpoints.MapFallbackToFile("index.html");
             });
         }
