@@ -1,6 +1,7 @@
 ﻿@page "/chat"
 @using System
 @using Microsoft.AspNetCore.SignalR.Client
+@using AndrewBreshamerChat.Server.Hubs
 @inject NavigationManager NavigationManager
 @implements IAsyncDisposable 
 @* Provides a mechanism for releasing unmanaged resources asynchronously. *@
@@ -22,7 +23,7 @@ dispose operations without blocking the main thread of a GUI application for a l
         <input @bind="messageInput" size="50" @onfocus="DisplayNameTyping" @onblur="HideFocus" /> 
     </label>
 </div>
-<button @onclick="Send" disabled="@(!IsConnected)">Send</button>
+<button @onclick=@(ChatHubs.SendMessage()) disabled="@(!IsConnected)">Send</button>
 
 <hr>
 
@@ -37,15 +38,16 @@ dispose operations without blocking the main thread of a GUI application for a l
     private HubConnection hubConnection; //create instance of HubConnection named hubConnection
     private List<string> messages = new List<string>();
     private string userInput;
-    private static string tempName; //create tempName to be inserted into 'userInput' for early use before button is pressed
     private string messageInput;
+    private string displayNameIsTyping;
 
     protected override async Task OnInitializedAsync()
     @* TAP (Task-based asynchronous pattern) uses a single method to represent the initiation and 
     completion of an asynchronous operation. This contrasts with both the APM (Asynchronous Programming 
     Model) and the EAP (Event-based Asynchronous Pattern) *@
     //invoked when the component is initialized after having recieved its initial parameters (i dont think there are any in here)
-    //asynchronous method executed when the component is initialized (delcared at line 36)
+    //asynchronous method executed when the component is initialized having received 
+    //its initial parameters from its parent in the render tree.
     {
         hubConnection = new HubConnectionBuilder() 
             //constructor in HubConnectionBuilder class from Microsoft.AspNetCore.SignalR.Client
@@ -64,7 +66,18 @@ dispose operations without blocking the main thread of a GUI application for a l
         {
             var encodedMsg = $"{user}: {message}";
             messages.Add(encodedMsg); //add encoded message to List<> messages
-            StateHasChanged(); //
+            StateHasChanged();
+        });
+
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) => 
+        //simply added second recieve action if both user && message match
+        {
+            bool areSame = user.Equals(userInput);
+            bool messageAreSame = message.Equals("is typing •••");
+            if(areSame && messageAreSame) {
+                messages.RemoveAt(messages.Count -1);
+                StateHasChanged();
+            };
         });
 
         await hubConnection.StartAsync();
@@ -75,20 +88,21 @@ dispose operations without blocking the main thread of a GUI application for a l
         //on hubConnection will wait until .StartAsync() is complete?
     }
 
+    private static string tempName; //create tempName to be inserted into 'userInput' for early use before button is pressed
+    
     private async Task DisplayNameTyping() 
     { 
         await Task.Delay(400); 
         //'await' suspends evalutaion of method until the async opeartion is called
         //add short delay to Task, "DisplayNameTypinc()" by using keyword 'Task'
-        await hubConnection.SendAsync("SendMessage", userInput, "is typing...");
+        await hubConnection.SendAsync("SendMessage", userInput, "is typing •••");
     }
-    private void HideFocus() 
-    {
-        messages.RemoveAt(messages.Count -1);
+    private void HideFocus() {
+        @* public string = "something"; *@
     }
 
-    async Task Send() => //sinlge operation with no return value
-        await hubConnection.SendAsync("SendMessage", userInput, messageInput);
+    @* async Task Send() => //sinlge operation with no return value
+        await hubConnection.SendAsync("SendMessage", userInput, messageInput); *@
 
     public bool IsConnected =>
         hubConnection.State == HubConnectionState.Connected;
