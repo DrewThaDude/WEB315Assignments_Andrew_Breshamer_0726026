@@ -1,7 +1,7 @@
 ﻿@page "/chat"
 @using System
 @using Microsoft.AspNetCore.SignalR.Client
-@using AndrewBreshamerChat.Server.Hubs
+@using using AndrewBreshamerChat.Server.Hubs
 @inject NavigationManager NavigationManager
 @implements IAsyncDisposable 
 @* Provides a mechanism for releasing unmanaged resources asynchronously. *@
@@ -23,7 +23,7 @@ dispose operations without blocking the main thread of a GUI application for a l
         <input @bind="messageInput" size="50" @onfocus="DisplayNameTyping" @onblur="HideFocus" /> 
     </label>
 </div>
-<button @onclick=@(ChatHubs.SendMessage()) disabled="@(!IsConnected)">Send</button>
+<button @onclick="SendMessage" disabled="@(!IsConnected)">Send</button>
 
 <hr>
 
