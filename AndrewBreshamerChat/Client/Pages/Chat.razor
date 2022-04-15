@@ -10,7 +10,8 @@ dispose operations without blocking the main thread of a GUI application for a l
 
 <div class="form-group">
     <label>
-        User:
+        Name: 
+        @* changed from 'user' to 'Name' *@
         <input @bind="userInput" />
     </label>
 </div>
@@ -32,7 +33,7 @@ dispose operations without blocking the main thread of a GUI application for a l
 </ul>
 
 @code {
-    private HubConnection hubConnection;
+    private HubConnection hubConnection; //create instance of HubConnection named hubConnection
     private List<string> messages = new List<string>();
     private string userInput;
     private string messageInput;
@@ -41,24 +42,38 @@ dispose operations without blocking the main thread of a GUI application for a l
     @* TAP (Task-based asynchronous pattern) uses a single method to represent the initiation and 
     completion of an asynchronous operation. This contrasts with both the APM (Asynchronous Programming 
     Model) and the EAP (Event-based Asynchronous Pattern) *@
+    //invoked when the component is initialized after having recieved its initial parameters (i dont think there are any in here)
+    //asynchronous method executed when the component is initialized (initialized at line 36?)
     {
         hubConnection = new HubConnectionBuilder() 
-            //method in Microsoft.AspNetCore.SignalR.Client
+            //constructor in HubConnectionBuilder class from Microsoft.AspNetCore.SignalR.Client
             //A builder for configuring HubConnection instances.
-            .WithUrl(NavigationManager.ToAbsoluteUri("/chat")) //route navigation manager method to new page 
+            .WithUrl(NavigationManager.ToAbsoluteUri("/chat")) 
+            //Configures the HubConnection class to use HTTP-based transports to connect to the specified URL.
+            //returns the same instance of IHubConnectionBuilder, A builder abstraction for configuring HubConnection instances
+            //create instance routed to "/chat" page
             .Build();
 
-        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) => 
+        //'this HubConnection hubConnection' implicitly used?
+        //'Registers a handler that will be invoked when the hub method with the specified method name is invoked.'
+        //lambda method used as handler 
+        //"ReceiveMessage" = The name of the hub method to define.
         {
             var encodedMsg = $"{user}: {message}";
-            messages.Add(encodedMsg);
-            StateHasChanged();
+            messages.Add(encodedMsg); //add encoded message to List<> messages
+            StateHasChanged(); //
         });
 
         await hubConnection.StartAsync();
+        //Before hub methods can be invoked the connection must be started using StartAsync()
+        //starts connection to the server
+        //'The await operator suspends evaluation of the enclosing async method until the 
+        //asynchronous operation represented by its operand completes' = methods that rely 
+        //on hubConnection will wait until .StartAsync() is complete?
     }
 
-    async Task Send() =>
+    async Task Send() => //sinlge operation with no return value
         await hubConnection.SendAsync("SendMessage", userInput, messageInput);
 
     public bool IsConnected =>
