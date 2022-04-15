@@ -1,4 +1,5 @@
 ﻿@page "/chat"
+@using System
 @using Microsoft.AspNetCore.SignalR.Client
 @inject NavigationManager NavigationManager
 @implements IAsyncDisposable 
@@ -11,14 +12,14 @@ dispose operations without blocking the main thread of a GUI application for a l
 <div class="form-group">
     <label>
         Name: 
-        @* changed from 'user' to 'Name' *@
-        <input @bind="userInput" />
+        <input @bind="userInput" @onblur=@(e => tempName = "userInput") />
     </label>
+    
 </div>
 <div class="form-group">
     <label>
         Message:
-        <input @bind="messageInput" size="50" />
+        <input @bind="messageInput" size="50" @onfocus="DisplayNameTyping" @onblur="HideFocus" /> 
     </label>
 </div>
 <button @onclick="Send" disabled="@(!IsConnected)">Send</button>
@@ -36,6 +37,7 @@ dispose operations without blocking the main thread of a GUI application for a l
     private HubConnection hubConnection; //create instance of HubConnection named hubConnection
     private List<string> messages = new List<string>();
     private string userInput;
+    private static string tempName; //create tempName to be inserted into 'userInput' for early use before button is pressed
     private string messageInput;
 
     protected override async Task OnInitializedAsync()
@@ -43,7 +45,7 @@ dispose operations without blocking the main thread of a GUI application for a l
     completion of an asynchronous operation. This contrasts with both the APM (Asynchronous Programming 
     Model) and the EAP (Event-based Asynchronous Pattern) *@
     //invoked when the component is initialized after having recieved its initial parameters (i dont think there are any in here)
-    //asynchronous method executed when the component is initialized (initialized at line 36?)
+    //asynchronous method executed when the component is initialized (delcared at line 36)
     {
         hubConnection = new HubConnectionBuilder() 
             //constructor in HubConnectionBuilder class from Microsoft.AspNetCore.SignalR.Client
@@ -73,6 +75,18 @@ dispose operations without blocking the main thread of a GUI application for a l
         //on hubConnection will wait until .StartAsync() is complete?
     }
 
+    private async Task DisplayNameTyping() 
+    { 
+        await Task.Delay(400); 
+        //'await' suspends evalutaion of method until the async opeartion is called
+        //add short delay to Task, "DisplayNameTypinc()" by using keyword 'Task'
+        await hubConnection.SendAsync("SendMessage", userInput, "is typing...");
+    }
+    private void HideFocus() 
+    {
+        messages.RemoveAt(messages.Count -1);
+    }
+
     async Task Send() => //sinlge operation with no return value
         await hubConnection.SendAsync("SendMessage", userInput, messageInput);
 
@@ -86,4 +100,5 @@ dispose operations without blocking the main thread of a GUI application for a l
             await hubConnection.DisposeAsync();
         }
     }
+    @* if(!string.IsNullOrWhiteSpace(userInput)) *@
 }
