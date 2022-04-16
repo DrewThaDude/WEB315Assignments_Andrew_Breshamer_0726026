@@ -9,7 +9,8 @@
 <div class="form-group">
     <label>
         Name: 
-        <input @bind="userInput" @onblur=@(e => tempName = "userInput") />
+        <input type="text" @bind="userInput" >
+        
     </label>
     
 </div>
@@ -17,23 +18,29 @@
     <label>
         Message:
         <input @bind="messageInput" size="50" @onfocus="DisplayNameTyping" @onblur="HideNameTyping" />
+        @* bind conflates with 'value' *@
     </label>
 </div>
-<button @onclick="Send" disabled="@(!IsConnected)">Send</button>
+<button @onclick="Send" disabled="@(!IsConnected)" class="" >Send</button>
 
 <hr>
 
 <ul id="messagesList">
     @foreach (var message in messages)
     {
-        <li>@message</li>
+        @if (message.IsUser == false) {
+            <li class="donothing">@message.User : @message.ActualMessage at @message.TimeMessage</li>
+        }  
+        @if (message.IsUser == true) {
+            <li class="dosomething" >@message.User : @message.ActualMessage at @message.TimeMessage</li>
+        }
     }
 </ul>
 
 @code {
     private HubConnection hubConnection; //create instance of HubConnection named hubConnection
-    private List<string> messages = new List<string>();
-    private string userInput;
+    private List<Message> messages = new List<Message>();
+    private static string userInput;
     private string messageInput;
 
     protected override async Task OnInitializedAsync()
@@ -57,10 +64,31 @@
         //'this HubConnection hubConnection' implicitly used?
         //'Registers a handler that will be invoked when the hub method with the specified method name is invoked.'
         //lambda method used as handler 
-        //"ReceiveMessage" = The name of the hub method to define.
+        //'recieves' ReceiveMessage from SendMessage, & SendMessageOthers from 'Client.Others'
         {
-            var encodedMsg = $"{user}: {message}";
-            messages.Add(encodedMsg); //add encoded message to List<> messages
+            messages.Add(
+                new Message 
+                { 
+                    User = user, 
+                    ActualMessage = message, 
+                    TimeMessage = DateTime.Now, 
+                    IsUser = false 
+                }
+            );
+            StateHasChanged();
+        });
+        hubConnection.On<string, string>("ReceiveUserMessage", (user, message) => 
+        //'recieves' SendMessageMyself
+        {
+            messages.Add(
+                new Message 
+                { 
+                    User = user, 
+                    ActualMessage = message, 
+                    TimeMessage = DateTime.Now, 
+                    IsUser = true //only send message to user w/ bool value set to true for formatting
+                }
+            );
             StateHasChanged();
         });
 
@@ -77,23 +105,29 @@
         //asynchronous operation represented by its operand completes' = methods that rely 
         //on hubConnection will wait until .StartAsync() is complete?
     }
-
-    private static string tempName; //create tempName to be inserted into 'userInput' for early use before button is pressed
     
     private async Task DisplayNameTyping() 
     { 
-        await Task.Delay(400); 
+        await Task.Delay(200); 
         //'await' suspends evalutaion of method until the async opeartion is called
         //add short delay to Task, "DisplayNameTypinc()" by using keyword 'Task'
         await hubConnection.SendAsync("SendMessageOthers", userInput, "is typing... ");
-    }
-    private async Task HideNameTyping()
-    {
-        await hubConnection.SendAsync("HideMessageOthers", userInput, "e");
+        //'SendMessageOthers' send message to 'Others' to recieve "ReceiveMyMessage" (typing...)
     }
 
-    async Task Send() => //sinlge operation with no return value
+    private async Task HideNameTyping()
+    {
+        await hubConnection.SendAsync("HideMessageOthers", userInput, "something");
+        //'HideMessageOthers' unsend message typing... to Others
+    }
+
+    async Task Send() {
         await hubConnection.SendAsync("SendMessage", userInput, messageInput);
+        //'SendMessage' send message to 'Others' to recieve "RecieveMessage" (your message w/ bool IsUser = false)
+        await hubConnection.SendAsync("SendMessageMyself", userInput, messageInput);
+        //'SendMessageMyself' send same ^^ message to 'Caller' to recieve "ReceiveUserMessage" (your message w/ bool IsUser = true)
+        messageInput = "";
+    }
 
     public bool IsConnected =>
         hubConnection.State == HubConnectionState.Connected;
@@ -105,5 +139,4 @@
             await hubConnection.DisposeAsync();
         }
     }
-    @* if(!string.IsNullOrWhiteSpace(userInput)) *@
 }
